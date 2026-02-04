@@ -1096,7 +1096,7 @@ MonoBehaviour:
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   grounded: 0
   ResumeBlock: {fileID: 636098317}
   SettingsBlock: {fileID: 711200111}
