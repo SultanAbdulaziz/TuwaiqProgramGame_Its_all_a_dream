@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,15 +16,20 @@ public class ObjectHoldManager : MonoBehaviour
     private Rigidbody heldObjRb; //rigidbody of object we pick up
     private bool canDrop = true; //this is needed so we don't throw/drop object when rotating the object
     private int LayerNumber; //layer index
+    private int LayerNumber2;
+    private Vector3 originalpos;
+    private quaternion originalrot;
 
     //Reference to script which includes mouse movement of player (looking around)
     //we want to disable the player looking around when rotating the object
     //example below 
     //MouseLookScript mouseLookScript;
+    [Header("Animaton")]
+    public Animator animator;
     void Start()
     {
         LayerNumber = LayerMask.NameToLayer("holdLayer"); //if your holdLayer is named differently make sure to change this ""
-
+        LayerNumber2 = LayerMask.NameToLayer("whatIsGround");
         //mouseLookScript = player.GetComponent<MouseLookScript>();
     }
     void Update()
@@ -37,7 +43,8 @@ public class ObjectHoldManager : MonoBehaviour
                 if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange))
                 {
                     //make sure pickup tag is attached
-                    if (hit.transform.gameObject.tag == "canPickUp")
+                    string tag = hit.transform.gameObject.tag;
+                    if (tag == "Resume" || tag == "Settings" || tag == "Exit")
                     {
                         //pass in object hit into the PickUpObject function
                         PickUpObject(hit.transform.gameObject);
@@ -69,6 +76,7 @@ public class ObjectHoldManager : MonoBehaviour
     {
         if (pickUpObj.GetComponent<Rigidbody>()) //make sure the object has a RigidBody
         {
+            originalpos = pickUpObj.transform.position; originalrot = pickUpObj.transform.rotation;
             heldObj = pickUpObj; //assign heldObj to the object that was hit by the raycast (no longer == null)
             heldObjRb = pickUpObj.GetComponent<Rigidbody>(); //assign Rigidbody
             heldObjRb.isKinematic = true;
@@ -76,17 +84,18 @@ public class ObjectHoldManager : MonoBehaviour
             heldObj.layer = LayerNumber; //change the object layer to the holdLayer
             //make sure object doesnt collide with player, it can cause weird bugs
             Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), true);
+            animator.SetBool("isPick", true);
         }
     }
     void DropObject()
     {
         //re-enable collision with player
         Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
-        heldObj.layer = 0; //object assigned back to default layer
+        heldObj.layer = LayerNumber2; //object assigned back to default layer
         heldObjRb.isKinematic = true;
-        if (heldObj.transform.position.y < -1) heldObj.transform.position = new Vector3(heldObj.transform.position.x,2,heldObj.transform.position.z);
         heldObj.transform.parent = null; //unparent object
         heldObj = null; //undefine game object
+        animator.SetBool("isPick", false);
     }
     void MoveObject()
     {
@@ -103,8 +112,8 @@ public class ObjectHoldManager : MonoBehaviour
             //mouseLookScript.verticalSensitivity = 0f;
             //mouseLookScript.lateralSensitivity = 0f;
 
-            float XaxisRotation = Input.GetAxis("Mouse X") * rotationSensitivity;
-            float YaxisRotation = Input.GetAxis("Mouse Y") * rotationSensitivity;
+            float XaxisRotation = Input.GetAxis("Mouse Y") * rotationSensitivity;
+            float YaxisRotation = Input.GetAxis("Mouse X") * rotationSensitivity;
             //rotate the object depending on mouse X-Y Axis
             heldObj.transform.Rotate(Vector3.down, XaxisRotation);
             heldObj.transform.Rotate(Vector3.right, YaxisRotation);
@@ -121,11 +130,12 @@ public class ObjectHoldManager : MonoBehaviour
     {
         //same as drop function, but add force to object before undefining it
         Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
-        heldObj.layer = 0;
+        heldObj.layer = LayerNumber2;
         heldObjRb.isKinematic = false;
         heldObj.transform.parent = null;
         heldObjRb.AddForce(transform.forward * throwForce);
         heldObj = null;
+        animator.SetBool("isPick", false);
     }
     void StopClipping() //function only called when dropping/throwing
     {
@@ -138,7 +148,7 @@ public class ObjectHoldManager : MonoBehaviour
         if (hits.Length > 1)
         {
             //change object position to camera position 
-            heldObj.transform.position = transform.position + new Vector3(0f, -0.5f, 0f); //offset slightly downward to stop object dropping above player 
+            heldObj.transform.position = originalpos; heldObj.transform.rotation = originalrot; //offset slightly downward to stop object dropping above player 
             //if your player is small, change the -0.5f to a smaller number (in magnitude) ie: -0.1f
         }
     }

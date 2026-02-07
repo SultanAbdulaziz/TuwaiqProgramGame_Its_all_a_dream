@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Ground
   - canPickUp
+  - Teleporter
+  - Death
+  - Resume
+  - Settings
+  - Exit
   layers:
   - Default
   - TransparentFX
