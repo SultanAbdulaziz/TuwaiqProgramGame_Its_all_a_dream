@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
 
     public void Loadlevel1(Transform player)
     {
-        player.position = new Vector3(-6, 3, 0);
+        player.position = new Vector3(-15.5f, 2f, 0f);
     }
 
 }
