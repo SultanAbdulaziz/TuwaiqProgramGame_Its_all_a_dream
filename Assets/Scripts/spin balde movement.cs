@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class spinbaldemovement : MonoBehaviour
 {
-    public float distance = 4f;
+    public float distance = 6f;
     public float speed = 2f;
 
     private Vector3 startPos;
