@@ -3,10 +3,13 @@ using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour
 {
+    public static HUDManager Instance;
     public GameManager instance;
     public Image BlackScreen;
+    public GameObject SettingsUI;
+    public bool isAudio = true;
+    public float sensitivity = 100f;
 
-    public static HUDManager Instance;
     void Start()
     {
         Instance = this;
@@ -31,8 +34,35 @@ public class HUDManager : MonoBehaviour
         BlackScreen.GetComponent<Animator>().Play("unPause");
     }
 
-    public void Death()
+    public void BlackFade()
     {
         BlackScreen.GetComponent<Animator>().Play("Fade");
+    }
+
+    public void openSettingsUI()
+    {
+        SettingsUI.SetActive(true);
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void exitSettings()
+    {
+        SettingsUI.SetActive(false);
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    public void Audio_Toggle()
+    {
+        isAudio = !isAudio;
+    }
+
+    public void Sensitivity_Slider()
+    {
+        Slider SensSlider = SettingsUI.GetComponent<Slider>();
+        sensitivity = SensSlider.value;
     }
 }

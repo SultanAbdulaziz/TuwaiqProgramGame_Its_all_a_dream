@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    int levelNum = 0;
+    public int levelNum = 0;
     public bool timePaused;
     void Start()
     {
@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     public void LevelComplete(Transform player,bool passed)
     {
+        Debug.Log("in levelcomplete");
         if (passed) levelNum++;
         switch (levelNum)
         {
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
     public void Loadlevel1(Transform player)
     {
         player.position = new Vector3(-15.5f, 2f, 0f);
+        Debug.Log("in load level 1");
     }
 
 }

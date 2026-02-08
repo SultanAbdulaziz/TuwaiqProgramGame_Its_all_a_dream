@@ -7,7 +7,9 @@ public class MouseLook : MonoBehaviour
     public float sensY = 100f;
     public Transform Orientation;
     float xRotation;
-    float yRotation;
+    float yRotation = -90;
+
+    public GameObject SettingsUI;
 
     void Start()
     {

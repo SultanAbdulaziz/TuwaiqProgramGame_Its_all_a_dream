@@ -1,5 +1,7 @@
 using System;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -13,12 +15,14 @@ public class PlayerManager : MonoBehaviour
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
-    public bool grounded;
+    private bool grounded;
     [Header("ESC Related")]
     public GameObject ResumeBlock;
     public GameObject SettingsBlock;
     public GameObject ExitBlock;
-    float distance = 2f;
+    private bool ResumePressedOnce;
+    private bool SettingsPressedOnce;
+    private float distance = 2f;
     public bool timePaused = false;
     Transform cam;
 
@@ -94,6 +98,8 @@ public class PlayerManager : MonoBehaviour
         ResumeBlock.transform.SetPositionAndRotation(spawnPos + cam.up * .5f, rot);
         SettingsBlock.transform.SetPositionAndRotation(spawnPos , rot);
         ExitBlock.transform.SetPositionAndRotation(spawnPos - cam.up * .5f, rot);
+        ResumePressedOnce = false;
+        SettingsPressedOnce = false;
     }
 
     public void OnTriggerEnter(Collider other)
@@ -101,18 +107,27 @@ public class PlayerManager : MonoBehaviour
         switch (other.tag)
         {
             case "Death":
-                HUDManager.Instance.Death();
+                HUDManager.Instance.BlackFade();
                 Invoke(nameof(restart), 1.5f);
+                Debug.Log("in trigger");
                 break;
             case "Teleporter":
                 GameManager.Instance.LevelComplete(player, true);
                 break;
             case "Resume":
+                if(ResumePressedOnce) break;
                 Invoke(nameof(resume), 0.5f);
+                ResumePressedOnce = true;
                 break;
             case "Settings":
+                if (SettingsPressedOnce) break;
+                HUDManager.Instance.openSettingsUI();
+                SettingsPressedOnce = true;
                 break;
             case "Exit":
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                SceneManager.LoadScene("Menu");
                 break;
         }
     }
@@ -125,5 +140,7 @@ public class PlayerManager : MonoBehaviour
     public void restart()
     {
         GameManager.Instance.LevelComplete(player, false);
+        Debug.Log("in restart()");
     }
+    
 }
