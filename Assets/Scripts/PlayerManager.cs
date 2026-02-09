@@ -1,7 +1,9 @@
 using System;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -12,6 +14,8 @@ public class PlayerManager : MonoBehaviour
     public Transform player;
     [Header("Animation")]
     public Animator animator;
+    public Animator cameraAnimator;
+    public Animator LightAnimator;
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
@@ -46,6 +50,7 @@ public class PlayerManager : MonoBehaviour
         if (grounded && Input.GetKey(KeyCode.Space))
         {
             rb.AddForce(Vector3.up * jumpSpeed);
+            AudioManager.instance.PlayJump();
             animator.Play("Jump");
         }
 
@@ -100,6 +105,7 @@ public class PlayerManager : MonoBehaviour
         ExitBlock.transform.SetPositionAndRotation(spawnPos - cam.up * .5f, rot);
         ResumePressedOnce = false;
         SettingsPressedOnce = false;
+        LightAnimator.SetBool("isPause", !LightAnimator.GetBool("isPause"));
     }
 
     public void OnTriggerEnter(Collider other)
@@ -109,10 +115,10 @@ public class PlayerManager : MonoBehaviour
             case "Death":
                 HUDManager.Instance.BlackFade();
                 Invoke(nameof(restart), 1.5f);
-                Debug.Log("in trigger");
                 break;
             case "Teleporter":
                 GameManager.Instance.LevelComplete(player, true);
+                AudioManager.instance.PlayTeleport();
                 break;
             case "Resume":
                 if(ResumePressedOnce) break;
@@ -140,7 +146,6 @@ public class PlayerManager : MonoBehaviour
     public void restart()
     {
         GameManager.Instance.LevelComplete(player, false);
-        Debug.Log("in restart()");
     }
     
 }

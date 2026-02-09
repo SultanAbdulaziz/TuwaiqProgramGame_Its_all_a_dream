@@ -620,11 +620,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpSpeed: 15
+  player: {fileID: 0}
+  animator: {fileID: 0}
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  grounded: 0
   ResumeBlock: {fileID: 1960750708}
   SettingsBlock: {fileID: 57802710}
   ExitBlock: {fileID: 1452308474}
@@ -1717,6 +1718,7 @@ MonoBehaviour:
   holdPos: {fileID: 1691804315}
   throwForce: 500
   pickUpRange: 2
+  animator: {fileID: 0}
 --- !u!114 &980545040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2523,15 +2525,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6738729428915641038, guid: 0d4e6f0c587a50342b6a608b57cde619, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.6711315
+      value: 2.114
       objectReference: {fileID: 0}
     - target: {fileID: 6738729428915641038, guid: 0d4e6f0c587a50342b6a608b57cde619, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5891549
+      value: -0.639
       objectReference: {fileID: 0}
     - target: {fileID: 6738729428915641038, guid: 0d4e6f0c587a50342b6a608b57cde619, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.7233524
+      value: 3.641
       objectReference: {fileID: 0}
     - target: {fileID: 6738729428915641038, guid: 0d4e6f0c587a50342b6a608b57cde619, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2734,6 +2736,7 @@ MonoBehaviour:
   holdPos: {fileID: 1691804315}
   throwForce: 500
   pickUpRange: 5
+  animator: {fileID: 0}
 --- !u!114 &1549154067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2749,6 +2752,7 @@ MonoBehaviour:
   sensX: 100
   sensY: 100
   Orientation: {fileID: 432013266}
+  SettingsUI: {fileID: 0}
 --- !u!114 &1549154068
 MonoBehaviour:
   m_ObjectHideFlags: 0

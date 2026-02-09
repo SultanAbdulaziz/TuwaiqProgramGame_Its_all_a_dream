@@ -11,9 +11,10 @@ Material:
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _EMISSION
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -131,7 +132,7 @@ Material:
     - _Color: {r: 0.19485289, g: 0.34401605, b: 0.7794118, a: 1}
     - _DiffuseColorc: {r: 0.39705884, g: 0.6756593, b: 1, a: 1}
     - _DiffuseColour: {r: 0.19609644, g: 0.4480343, b: 0.8602941, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0.09836054, g: 0, b: 1, a: 1}
     - _RimColour: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _SnowColour: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _SnowSpecularColour: {r: 0.5, g: 0.5, b: 0.5, a: 1}
