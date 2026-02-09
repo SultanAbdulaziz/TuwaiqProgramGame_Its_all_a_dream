@@ -1,37 +1,46 @@
 using UnityEngine;
-using UnityEngine.VFX;
 
 public class AudioManager : MonoBehaviour
 {
+    public static AudioManager Instance;
+    public static AudioManager instance => Instance;
 
-    public static AudioManager instance;
-
+    [Header("SFX Source")]
     public AudioSource sfxSource;
 
+    [Header("Clips")]
     public AudioClip teleportClip;
     public AudioClip jumpClip;
     public AudioClip loseClip;
 
-    void Awake()
+    public AudioClip laserClip;
+    public AudioClip stageWinClip;
+    public AudioClip finalWinClip;
+    public AudioClip clickClip;   // ÅÐÇ ÚäÏß ÕæÊ ßáß
+
+    private void Awake()
     {
-        if (instance == null)
-            instance = this;
-        else
+        if (Instance != null && Instance != this)
+        {
             Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
-    public void PlayTeleport()
+    void Play(AudioClip clip, float volume = 1f)
     {
-        sfxSource.PlayOneShot(teleportClip);
+        if (clip == null || sfxSource == null) return;
+        sfxSource.PlayOneShot(clip, volume);
     }
 
-    public void PlayJump()
-    {
-        sfxSource.PlayOneShot(jumpClip);
-    }
+    public void PlayTeleport() => Play(teleportClip);
+    public void PlayJump() => Play(jumpClip);
+    public void PlayLose() => Play(loseClip);
 
-    public void PlayLose()
-    {
-        sfxSource.PlayOneShot(loseClip);
-    }
+    public void PlayLaser() => Play(laserClip);
+    public void PlayStageWin() => Play(stageWinClip);
+    public void PlayFinalWin() => Play(finalWinClip);
+    public void PlayClick() => Play(clickClip);
 }

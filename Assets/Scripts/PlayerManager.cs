@@ -114,11 +114,13 @@ public class PlayerManager : MonoBehaviour
         {
             case "Death":
                 HUDManager.Instance.BlackFade();
+                AudioManager.instance.PlayLose();
                 Invoke(nameof(restart), 1.5f);
                 break;
             case "Teleporter":
                 GameManager.Instance.LevelComplete(player, true);
                 AudioManager.instance.PlayTeleport();
+                AudioManager.instance.PlayStageWin();
                 break;
             case "Resume":
                 if(ResumePressedOnce) break;
