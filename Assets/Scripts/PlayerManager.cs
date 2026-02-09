@@ -57,7 +57,10 @@ public class PlayerManager : MonoBehaviour
     }
     void FixedUpdate()
     {
-        Movement();
+        if (Math.Abs(Input.GetAxisRaw("Horizontal")) > 0 || Math.Abs(Input.GetAxisRaw("Vertical")) > 0)
+            Movement();
+        else
+            rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
     }
 
     private void myInput()
@@ -114,7 +117,8 @@ public class PlayerManager : MonoBehaviour
         {
             case "Death":
                 HUDManager.Instance.BlackFade();
-                Invoke(nameof(restart), 1.5f);
+                rb.linearVelocity = new Vector3(0,rb.linearVelocity.y, 0);
+                Invoke(nameof(restart), 0.3f);
                 break;
             case "Teleporter":
                 GameManager.Instance.LevelComplete(player, true);
