@@ -19,19 +19,7 @@ public class HUDManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Pause();
-            Invoke(nameof(UnPause), 1f);
-        }
-    }
-    public void Pause()
-    {
-        BlackScreen.GetComponent<Animator>().Play("Pause");
-    }
-    public void UnPause()
-    {
-        BlackScreen.GetComponent<Animator>().Play("unPause");
+
     }
 
     public void BlackFade()
