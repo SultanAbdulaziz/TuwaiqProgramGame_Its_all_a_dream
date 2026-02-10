@@ -108,7 +108,6 @@ public class PlayerManager : MonoBehaviour
         ExitBlock.transform.SetPositionAndRotation(spawnPos - cam.up * .5f, rot);
         ResumePressedOnce = false;
         SettingsPressedOnce = false;
-        LightAnimator.SetBool("isPause", !LightAnimator.GetBool("isPause"));
     }
 
     public void OnTriggerEnter(Collider other)
@@ -117,6 +116,7 @@ public class PlayerManager : MonoBehaviour
         {
             case "Death":
                 HUDManager.Instance.BlackFade();
+                AudioManager.instance.PlayLose();
                 rb.linearVelocity = new Vector3(0,rb.linearVelocity.y, 0);
                 Invoke(nameof(restart), 0.3f);
                 break;

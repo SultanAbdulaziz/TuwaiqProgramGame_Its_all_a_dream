@@ -32,9 +32,9 @@ public class GameManager : MonoBehaviour
         if (passed) levelNum++;
         switch (levelNum)
         {
-            case 1 : Loadlevel1(player); break;
-            case 2 : Loadlevel2(player); break;
-            case 3 : Loadlevel3(player); break;
+            case 1 : Loadlevel1(player); AudioManager.instance.PlayStageWin(); break;
+            case 2 : Loadlevel2(player); AudioManager.instance.PlayStageWin(); break;
+            case 3 : Loadlevel3(player); AudioManager.instance.PlayFinalWin(); break;
         }
 
     }
