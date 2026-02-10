@@ -24,17 +24,24 @@ public class GameManager : MonoBehaviour
 
     public void timePause()
     {
-        timePaused = !timePaused;
+        if(timePaused) AudioManager.Instance.Playresume();
+        else AudioManager.instance.Playpause();
+            timePaused = !timePaused;
     }
 
     public void LevelComplete(Transform player,bool passed)
     {
-        if (passed) levelNum++;
+        if (passed)
+        {
+            levelNum++;
+            AudioManager.instance.PlayStageWin();
+        }
         switch (levelNum)
         {
-            case 1 : Loadlevel1(player); AudioManager.instance.PlayStageWin(); break;
-            case 2 : Loadlevel2(player); AudioManager.instance.PlayStageWin(); break;
-            case 3 : Loadlevel3(player); AudioManager.instance.PlayFinalWin(); break;
+            case 1 : Loadlevel1(player); break;
+            case 2 : Loadlevel2(player); break;
+            case 3 : Loadlevel3(player); break;
+            case 4 : SceneManager.LoadScene("Menu"); break;
         }
 
     }
@@ -49,7 +56,7 @@ public class GameManager : MonoBehaviour
     }
     public void Loadlevel3(Transform player)
     {
-        player.position = new Vector3(-15.5f, 2f, 0f);
+        player.position = new Vector3(-62f, 2f, 0f);
     }
 
 }

@@ -61,6 +61,19 @@ public class PlayerManager : MonoBehaviour
             Movement();
         else
             rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
+
+        if (Input.GetKey(KeyCode.D))
+            animator.Play("Right strafe");
+        else if (Input.GetKey(KeyCode.A))
+            animator.Play("Left strafe");
+        else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
+        {
+            animator.Play("Walk");
+        }
+        else
+        {
+            animator.SetBool("isWalk", false);
+        }
     }
 
     private void myInput()
@@ -75,20 +88,7 @@ public class PlayerManager : MonoBehaviour
         if (new Vector3(currentVelocity.x, 0f, currentVelocity.z).magnitude < 5f)
         {
             rb.linearVelocity = new Vector3(moveDirection.x * moveSpeed,currentVelocity.y,moveDirection.z * moveSpeed);
-        }
-
-        if (new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z).magnitude > 0.1f)
-        {
             animator.SetBool("isWalk", true);
-
-            if (Input.GetKey(KeyCode.D))
-                animator.Play("Right strafe");
-            else if (Input.GetKey(KeyCode.A))
-                animator.Play("Left strafe");
-        }
-        else
-        {
-            animator.SetBool("isWalk", false);
         }
     }
 
@@ -108,6 +108,7 @@ public class PlayerManager : MonoBehaviour
         ExitBlock.transform.SetPositionAndRotation(spawnPos - cam.up * .5f, rot);
         ResumePressedOnce = false;
         SettingsPressedOnce = false;
+        LightAnimator.SetBool("isPause",timePaused);
     }
 
     public void OnTriggerEnter(Collider other)

@@ -85,6 +85,7 @@ public class ObjectHoldManager : MonoBehaviour
             //make sure object doesnt collide with player, it can cause weird bugs
             Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), true);
             animator.SetBool("isPick", true);
+            AudioManager.instance.Playpick();
         }
     }
     void DropObject()
@@ -96,6 +97,7 @@ public class ObjectHoldManager : MonoBehaviour
         heldObj.transform.parent = null; //unparent object
         heldObj = null; //undefine game object
         animator.SetBool("isPick", false);
+        AudioManager.instance.Playpick();
     }
     void MoveObject()
     {
@@ -136,6 +138,7 @@ public class ObjectHoldManager : MonoBehaviour
         heldObjRb.AddForce(transform.forward * throwForce);
         heldObj = null;
         animator.SetBool("isPick", false);
+        AudioManager.instance.Playpick();
     }
     void StopClipping() //function only called when dropping/throwing
     {

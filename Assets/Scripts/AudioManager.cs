@@ -12,11 +12,10 @@ public class AudioManager : MonoBehaviour
     public AudioClip teleportClip;
     public AudioClip jumpClip;
     public AudioClip loseClip;
-
-    public AudioClip laserClip;
     public AudioClip stageWinClip;
-    public AudioClip finalWinClip;
-    public AudioClip clickClip;   // ÅÐÇ ÚäÏß ÕæÊ ßáß
+    public AudioClip pickupClip;
+    public AudioClip timestop;
+    public AudioClip timeresume;
 
     private void Awake()
     {
@@ -38,9 +37,8 @@ public class AudioManager : MonoBehaviour
     public void PlayTeleport() => Play(teleportClip);
     public void PlayJump() => Play(jumpClip);
     public void PlayLose() => Play(loseClip);
-
-    public void PlayLaser() => Play(laserClip);
     public void PlayStageWin() => Play(stageWinClip);
-    public void PlayFinalWin() => Play(finalWinClip);
-    public void PlayClick() => Play(clickClip);
+    public void Playpick() => Play(pickupClip);
+    public void Playpause() => Play(timestop);
+    public void Playresume() => Play(timeresume);
 }

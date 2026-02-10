@@ -12,6 +12,10 @@ public class LaserManager : MonoBehaviour
     [Header("Options")]
     public bool playOnStart = true;
     public bool loop = false;
+    [Header("Audio")]
+    public AudioSource AudioSource;
+    private bool Audioplaying;
+    public int level;
 
     private float timer;
     private bool isMoving;
@@ -26,12 +30,16 @@ public class LaserManager : MonoBehaviour
 
     void Update()
     {
-        if (!isMoving || pointA == null || pointB == null || GameManager.Instance.timePaused)
-            return;
-
+        if (!isMoving || pointA == null || pointB == null || GameManager.Instance.timePaused || GameManager.Instance.levelNum != level)
+        {
+            AudioSource.Pause(); Audioplaying = false; return;
+        }
         timer += Time.deltaTime;
         float t = Mathf.Clamp01(timer / moveTime);
-
+        if(Audioplaying == false)
+        {
+            AudioSource.Play(); Audioplaying = true;
+        }
         transform.position = Vector3.Lerp(pointA.position, pointB.position, t);
 
         if (t >= 1f)
