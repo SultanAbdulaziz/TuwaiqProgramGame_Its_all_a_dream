@@ -7,7 +7,7 @@ public class MouseLook : MonoBehaviour
     public float sensY = 100f;
     public Transform Orientation;
     float xRotation;
-    float yRotation = -90;
+    float yRotation = -90f;
 
     public GameObject SettingsUI;
 
@@ -15,9 +15,22 @@ public class MouseLook : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        if (GameManager.Instance != null)
+        {
+            sensX = GameManager.Instance.sensitivity;
+            sensY = GameManager.Instance.sensitivity;
+        }
     }
+
     void Update()
     {
+        if (GameManager.Instance != null)
+        {
+            sensX = GameManager.Instance.sensitivity;
+            sensY = GameManager.Instance.sensitivity;
+        }
+
         if (!Input.GetKey(KeyCode.R))
         {
             float mouseX = Input.GetAxis("Mouse X") * sensX * Time.deltaTime;

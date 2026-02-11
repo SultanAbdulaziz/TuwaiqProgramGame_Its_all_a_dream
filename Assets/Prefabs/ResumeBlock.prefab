@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2024544968481753256}
   - component: {fileID: 1405240569322624457}
   - component: {fileID: -2702439926164777589}
+  - component: {fileID: 4133234659805426833}
   m_Layer: 6
   m_Name: ResumeBlock
   m_TagString: canPickUp
@@ -137,6 +138,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4133234659805426833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1395310190635380550}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &5659114575848247057
 GameObject:
   m_ObjectHideFlags: 0

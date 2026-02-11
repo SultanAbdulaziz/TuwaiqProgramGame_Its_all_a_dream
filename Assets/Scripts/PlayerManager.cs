@@ -1,9 +1,7 @@
 using System;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -117,6 +115,7 @@ public class PlayerManager : MonoBehaviour
         {
             case "Death":
                 HUDManager.Instance.BlackFade();
+                HUDManager.Instance.addDeathtoCount();
                 AudioManager.instance.PlayLose();
                 rb.linearVelocity = new Vector3(0,rb.linearVelocity.y, 0);
                 Invoke(nameof(restart), 0.3f);

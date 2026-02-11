@@ -46,7 +46,6 @@ public class Vaulting : MonoBehaviour
 
         Vector3 origin = transform.position;
 
-        // wall check (chest height)
         bool wallHit = Physics.Raycast(
             origin,
             transform.forward,
@@ -54,7 +53,6 @@ public class Vaulting : MonoBehaviour
             whatIsGround
         );
 
-        // ledge check (head height, forward)
         bool ledgeHit = Physics.Raycast(
             origin + Vector3.up * ledgeCheckHeight,
             transform.forward,
@@ -62,7 +60,6 @@ public class Vaulting : MonoBehaviour
             whatIsGround
         );
 
-        // wall detected but no ledge above = climbable
         if (wallHit && !ledgeHit)
         {
             StartClimb();
@@ -74,20 +71,8 @@ public class Vaulting : MonoBehaviour
         isClimbing = true;
         rb.linearVelocity = Vector3.zero;
         rb.isKinematic = true;
-
         climbTarget = transform.position
                     + transform.forward * climbOffset.z
                     + Vector3.up * climbOffset.y;
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position,
-            transform.position + transform.forward * wallCheckDistance);
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position + Vector3.up * ledgeCheckHeight,
-            transform.position + Vector3.up * ledgeCheckHeight + transform.forward * wallCheckDistance);
     }
 }

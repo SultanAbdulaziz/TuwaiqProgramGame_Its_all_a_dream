@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -8,12 +7,20 @@ public class MenuManager : MonoBehaviour
     public GameObject SettingsUI;
     public GameObject Menu;
     public Slider SensSlider;
-    public float sensitivity = 100;
-    public bool Audio = true;
+    public Toggle AudioToggle;
+
     private bool invert = false;
-    void Update()
+
+    void Start()
     {
-        
+        if (GameManager.Instance != null)
+        {
+            if (AudioToggle != null)
+                AudioToggle.isOn = GameManager.Instance.isAudioOn;
+
+            if (SensSlider != null)
+                SensSlider.value = GameManager.Instance.sensitivity;
+        }
     }
 
     public void Start_ButtonPressed()
@@ -23,25 +30,25 @@ public class MenuManager : MonoBehaviour
 
     public void Settings_ButtonPressed()
     {
-        SettingsUI.SetActive(invert);
         invert = !invert;
-        Menu.SetActive(invert);
+        SettingsUI.SetActive(invert);
+        Menu.SetActive(!invert);
     }
+
     public void Exit_ButtonPressed()
     {
         Debug.Log("Application is Quitting");
         Application.Quit();
     }
-
-    public void Audio_Toggle()
+    public void Audio_Toggle(bool value)
     {
-        Audio = !Audio;
-        Debug.Log(Audio);
+        if (GameManager.Instance != null)
+            GameManager.Instance.SetAudio(value);
     }
 
-    public void Sensitivity_Slider()
+    public void Sensitivity_Slider(float value)
     {
-        sensitivity = SensSlider.value;
-        Debug.Log(sensitivity);
+        if (GameManager.Instance != null)
+            GameManager.Instance.SetSensitivity(value);
     }
 }

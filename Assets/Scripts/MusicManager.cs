@@ -5,7 +5,6 @@ public class MusicManager : MonoBehaviour
     private static MusicManager instance;
     public AudioClip themeTrack;
     private AudioSource audioSource;
-
     void Awake()
     {
         if (instance == null)

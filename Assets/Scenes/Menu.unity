@@ -1003,6 +1003,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 872570859125319892, guid: 0d4e6f0c587a50342b6a608b57cde619, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 5279484183695819658, guid: 0d4e6f0c587a50342b6a608b57cde619, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 0d4e6f0c587a50342b6a608b57cde619, type: 3}
 --- !u!1 &280983416
 GameObject:
@@ -1302,10 +1305,10 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1923792244}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: Audio_Toggle
-        m_Mode: 1
+      - m_Target: {fileID: 1923792245}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: SetAudio
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3470,7 +3473,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Audio
+  m_text: Music
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 24f9619a12d74f34ea90945379f9611f, type: 2}
   m_sharedMaterial: {fileID: 7792242648808329921, guid: 24f9619a12d74f34ea90945379f9611f, type: 2}
@@ -4061,6 +4064,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1923792243}
   - component: {fileID: 1923792244}
+  - component: {fileID: 1923792245}
   m_Layer: 0
   m_Name: MenuManager
   m_TagString: Untagged
@@ -4098,8 +4102,24 @@ MonoBehaviour:
   SettingsUI: {fileID: 1218457675}
   Menu: {fileID: 1161342121}
   SensSlider: {fileID: 1936496457}
+  AudioToggle: {fileID: 304733686}
+--- !u!114 &1923792245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923792242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbdc52614823a4e468cdc0b48e63230a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelNum: 0
+  timePaused: 0
+  isAudioOn: 1
   sensitivity: 100
-  Audio: 1
+  AudioSource: {fileID: 222985640}
 --- !u!1 &1936496455
 GameObject:
   m_ObjectHideFlags: 0
